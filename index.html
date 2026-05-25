@@ -44,149 +44,37 @@ html,body{background:#000;min-height:100vh;font-family:-apple-system,BlinkMacSys
     <div class="logo">i<em>BLACK</em></div>
     <div class="subtitle">Fale com nossa equipe</div>
     <div class="time-row">
-      <div class="badge badge-time">
-        <div class="dot dot-on pulsing"></div>
-        <span id="clock">--:--</span>
-      </div>
-      <div class="badge badge-online" id="badge-online" style="display:none">
-        <span id="online-txt"></span>
-      </div>
+      <div class="badge badge-time"><div class="dot dot-on pulsing"></div><span id="clock">--:--</span></div>
+      <div class="badge badge-online" id="badge-online" style="display:none"><span id="online-txt"></span></div>
     </div>
   </div>
-
   <div id="section-on" class="section-label" style="display:none">Atendendo agora</div>
   <div id="cards-on" class="cards"></div>
-
   <div id="section-off" class="section-label" style="display:none">Fora do horário</div>
   <div id="cards-off" class="cards"></div>
 </div>
-
 <div class="footer">Rotação automática iBlack</div>
-
 <script>
-var LOJA = {
-  "Akash":  {c:"#60A5FA", bg:"rgba(59,130,246,0.10)"},
-  "Matriz": {c:"#A78BFA", bg:"rgba(139,92,246,0.10)"},
-  "Catuaí": {c:"#34D399", bg:"rgba(16,185,129,0.10)"}
-};
-
-// ─── VENDEDORES ────────────────────────────────────────────────────────────────
-// ag: 0=Dom, 1=Seg, 2=Ter, 3=Qua, 4=Qui, 5=Sex, 6=Sáb
-// wa: link completo do WhatsApp
-var V = [
-  {id:1, nome:"Thaysson", loja:"Akash",
-   wa:"https://wa.me/5544997104306?text=Ol%C3%A1%2C+vim+pelo+site+iBlack%21",
-   ag:{1:"10:00-18:00",2:"10:00-18:00",3:"10:00-18:00",4:"10:00-18:00",5:"10:00-18:00",6:"10:00-18:00"}},
-
-  {id:2, nome:"Leticia",  loja:"Akash",
-   wa:"https://wa.me/message/HHZOJMTVWNZUO1",
-   ag:{1:"11:45-20:00",2:"11:45-20:00",3:"11:45-20:00",4:"11:45-20:00",5:"11:45-20:00",6:"10:00-18:00"}},
-
-  // ⚠️ Leonardo — aguardando link de WhatsApp
-  {id:3, nome:"Leonardo", loja:"Akash",
-   wa:"https://wa.me/5544SUBSTITUIR_LEONARDO",
-   ag:{1:"10:00-18:00",2:"10:00-18:00",3:"10:00-18:00",4:"10:00-18:00",5:"10:00-18:00",6:"10:00-18:00"}},
-
-  // ⚠️ Horácio — aguardando link de WhatsApp
-  {id:4, nome:"Horácio",  loja:"Akash",
-   wa:"https://wa.me/5544SUBSTITUIR_HORACIO",
-   ag:{1:"11:45-20:00",2:"11:45-20:00",3:"11:45-20:00",4:"11:45-20:00",5:"11:45-20:00",6:"10:00-18:00"}},
-
-  {id:5, nome:"Matheus",  loja:"Matriz",
-   wa:"https://wa.me/5544999846211?text=Ol%C3%A1%2C+vim+pelo+site+iBlack%21",
-   ag:{1:"09:00-18:00",2:"09:00-18:00",3:"09:00-18:00",4:"09:00-18:00",5:"09:00-18:00",6:"09:00-13:00"}},
-
-  {id:6, nome:"Maria",    loja:"Matriz",
-   wa:"https://wa.me/554498799837?text=Ol%C3%A1%2C+vim+pelo+site+iBlack%21",
-   ag:{1:"09:00-18:00",2:"09:00-18:00",3:"09:00-18:00",4:"09:00-18:00",5:"09:00-18:00",6:"09:00-13:00"}},
-
-  {id:7, nome:"Luan",     loja:"Matriz",
-   wa:"https://wa.me/message/QQWPF2ZNFKRSO1",
-   ag:{1:"09:00-18:00",2:"09:00-18:00",3:"09:00-18:00",4:"09:00-18:00",5:"09:00-18:00",6:"09:00-13:00"}},
-
-  {id:8, nome:"Fernando", loja:"Catuaí",
-   wa:"https://wa.me/5544997516444?text=Ol%C3%A1%2C+vim+pelo+site+iBlack%21",
-   ag:{0:"13:00-19:00",1:"10:00-18:05",2:"10:00-18:05",3:"10:00-18:05",4:"10:00-18:05",5:"10:00-18:05",6:"10:00-18:05"}},
-
-  {id:9, nome:"Luis",     loja:"Catuaí",
-   wa:"https://wa.me/message/RT6EBZBCKCG4O1",
-   ag:{1:"13:45-22:00",2:"13:45-22:00",3:"13:45-22:00",4:"13:45-22:00",5:"13:45-22:00",6:"13:45-22:00"}},
-
-  {id:10,nome:"Sabrina",  loja:"Catuaí",
-   wa:"https://wa.me/message/SE26R6R2Q6JPO1",
-   ag:{0:"13:00-19:00",1:"13:45-22:00",2:"13:45-22:00",3:"13:45-22:00",4:"13:45-22:00",5:"13:45-22:00",6:"13:45-22:00"}},
-
-  // ⚠️ Pedro — confirmar loja e horário com Renan
-  {id:11,nome:"Pedro",    loja:"Akash",
-   wa:"https://wa.me/5544997393914?text=Ol%C3%A1%2C+vim+pelo+site+iBlack%21",
-   ag:{1:"10:00-18:00",2:"10:00-18:00",3:"10:00-18:00",4:"10:00-18:00",5:"10:00-18:00",6:"10:00-18:00"}},
+var LOJA={"Akash":{c:"#60A5FA",bg:"rgba(59,130,246,0.10)"},"Matriz":{c:"#A78BFA",bg:"rgba(139,92,246,0.10)"},"Catuaí":{c:"#34D399",bg:"rgba(16,185,129,0.10)"}};
+var V=[
+{id:1,nome:"Thaysson",loja:"Akash",ativo:true,wa:"https://wa.me/5544997104306?text=Ol%C3%A1%2C+vim+pelo+site+iBlack%21",ag:{1:"10:00-18:00",2:"10:00-18:00",3:"10:00-18:00",4:"10:00-18:00",5:"10:00-18:00",6:"10:00-18:00"}},
+{id:2,nome:"Leonardo",loja:"Akash",ativo:false,wa:"",ag:{1:"10:00-18:00",2:"10:00-18:00",3:"10:00-18:00",4:"10:00-18:00",5:"10:00-18:00",6:"10:00-18:00"}},
+{id:3,nome:"Horácio",loja:"Akash",ativo:false,wa:"",ag:{1:"11:45-20:00",2:"11:45-20:00",3:"11:45-20:00",4:"11:45-20:00",5:"11:45-20:00",6:"10:00-18:00"}},
+{id:4,nome:"Leticia",loja:"Akash",ativo:true,wa:"https://wa.me/message/HHZOJMTVWNZUO1",ag:{1:"11:45-20:00",2:"11:45-20:00",3:"11:45-20:00",4:"11:45-20:00",5:"11:45-20:00",6:"10:00-18:00"}},
+{id:5,nome:"Matheus",loja:"Matriz",ativo:true,wa:"https://wa.me/5544999846211?text=Ol%C3%A1%2C+vim+pelo+site+iBlack%21",ag:{1:"09:00-18:00",2:"09:00-18:00",3:"09:00-18:00",4:"09:00-18:00",5:"09:00-18:00",6:"09:00-13:00"}},
+{id:6,nome:"Maria",loja:"Matriz",ativo:true,wa:"https://wa.me/554498799837?text=Ol%C3%A1%2C+vim+pelo+site+iBlack%21",ag:{1:"09:00-18:00",2:"09:00-18:00",3:"09:00-18:00",4:"09:00-18:00",5:"09:00-18:00",6:"09:00-13:00"}},
+{id:7,nome:"Luan",loja:"Matriz",ativo:true,wa:"https://wa.me/message/QQWPF2ZNFKRSO1",ag:{1:"09:00-18:00",2:"09:00-18:00",3:"09:00-18:00",4:"09:00-18:00",5:"09:00-18:00",6:"09:00-13:00"}},
+{id:8,nome:"Fernando",loja:"Catuaí",ativo:true,wa:"https://wa.me/5544997516444?text=Ol%C3%A1%2C+vim+pelo+site+iBlack%21",ag:{0:"13:00-19:00",1:"10:00-18:05",2:"10:00-18:05",3:"10:00-18:05",4:"10:00-18:05",5:"10:00-18:05",6:"10:00-18:05"}},
+{id:9,nome:"Luis",loja:"Catuaí",ativo:true,wa:"https://wa.me/message/RT6EBZBCKCG4O1",ag:{1:"13:45-22:00",2:"13:45-22:00",3:"13:45-22:00",4:"13:45-22:00",5:"13:45-22:00",6:"13:45-22:00"}},
+{id:10,nome:"Sabrina",loja:"Catuaí",ativo:true,wa:"https://wa.me/message/SE26R6R2Q6JPO1",ag:{0:"13:00-19:00",1:"13:45-22:00",2:"13:45-22:00",3:"13:45-22:00",4:"13:45-22:00",5:"13:45-22:00",6:"13:45-22:00"}},
+{id:11,nome:"Pedro",loja:"Catuaí",ativo:true,wa:"https://wa.me/5544997393914?text=Ol%C3%A1%2C+vim+pelo+site+iBlack%21",ag:{1:"11:00-20:00",2:"11:00-20:00",3:"11:00-20:00",4:"11:00-20:00",5:"11:00-20:00",6:"11:00-20:00"}},
 ];
-// ──────────────────────────────────────────────────────────────────────────────
-
 function toMins(s){var p=s.split(":");return parseInt(p[0])*60+parseInt(p[1]);}
-
-function getStatus(v,now){
-  var day=now.getDay(), mins=now.getHours()*60+now.getMinutes();
-  var shift=v.ag[day];
-  if(!shift){
-    for(var d=1;d<=7;d++){var nd=(day+d)%7;if(v.ag[nd])return{type:"off",label:"volta "+v.ag[nd].split("-")[0]};}
-    return{type:"off",label:"folga"};
-  }
-  var parts=shift.split("-"), s=toMins(parts[0]), e=toMins(parts[1]);
-  if(mins>=s&&mins<e)return{type:"on",label:"até "+parts[1]};
-  if(mins<s)return{type:"later",label:"entra "+parts[0]};
-  return{type:"done",label:"encerrou"};
-}
-
-function rotate(arr,n){
-  if(!arr.length)return arr;
-  var o=((n%arr.length)+arr.length)%arr.length;
-  return arr.slice(o).concat(arr.slice(0,o));
-}
-
-function render(){
-  var now=new Date();
-  var h=now.getHours(), m=now.getMinutes();
-  document.getElementById("clock").textContent=(h<10?"0":"")+h+":"+(m<10?"0":"")+m;
-
-  var withSt=V.map(function(v){return Object.assign({},v,{st:getStatus(v,now)});});
-  var active=withSt.filter(function(v){return v.st.type==="on";});
-  var inactive=withSt.filter(function(v){return v.st.type!=="on";});
-
-  var rotated=rotate(active,h);
-
-  var bo=document.getElementById("badge-online");
-  if(active.length){
-    bo.style.display="inline-flex";
-    document.getElementById("online-txt").textContent=active.length+" vendedor"+(active.length>1?"es":"")+" online";
-  } else {bo.style.display="none";}
-
-  var so=document.getElementById("section-on");
-  var sf=document.getElementById("section-off");
-  var co=document.getElementById("cards-on");
-  var cf=document.getElementById("cards-off");
-
-  so.style.display=active.length?"block":"none";
-  sf.style.display=inactive.length?"block":"none";
-
-  co.innerHTML=rotated.map(function(v){return cardHTML(v,true);}).join("");
-  cf.innerHTML=inactive.map(function(v){return cardHTML(v,false);}).join("");
-}
-
-function cardHTML(v,on){
-  var ls=LOJA[v.loja]||{c:"#888",bg:"rgba(128,128,128,0.1)"};
-  var badge='<span class="loja-badge" style="color:'+ls.c+';background:'+ls.bg+'">'+v.loja+'</span>';
-  var dot='<div class="dot '+(on?"dot-on pulsing":"dot-off")+'"></div>';
-  var btn=on?'<a class="wa-btn" href="'+v.wa+'" target="_blank">Falar</a>':"";
-  return'<div class="card '+(on?"card-on":"card-off")+'">'
-    +dot
-    +'<div class="info"><div class="nome">'+v.nome+'</div>'
-    +'<div class="meta">'+badge+'<span class="status">'+v.st.label+'</span></div></div>'
-    +btn+'</div>';
-}
-
-render();
-setInterval(render,30000);
+function getStatus(v,now){var day=now.getDay(),mins=now.getHours()*60+now.getMinutes();var shift=v.ag[day];if(!shift){for(var d=1;d<=7;d++){var nd=(day+d)%7;if(v.ag[nd])return{type:"off",label:"volta "+v.ag[nd].split("-")[0]};}return{type:"off",label:"folga"};}var parts=shift.split("-"),s=toMins(parts[0]),e=toMins(parts[1]);if(mins>=s&&mins<e)return{type:"on",label:"até "+parts[1]};if(mins<s)return{type:"later",label:"entra "+parts[0]};return{type:"done",label:"encerrou"};}
+function rotate(arr,n){if(!arr.length)return arr;var o=((n%arr.length)+arr.length)%arr.length;return arr.slice(o).concat(arr.slice(0,o));}
+function render(){var now=new Date();var h=now.getHours(),m=now.getMinutes();document.getElementById("clock").textContent=(h<10?"0":"")+h+":"+(m<10?"0":"")+m;var ativos=V.filter(function(v){return v.ativo;});var withSt=ativos.map(function(v){return Object.assign({},v,{st:getStatus(v,now)});});var active=withSt.filter(function(v){return v.st.type==="on";});var inactive=withSt.filter(function(v){return v.st.type!=="on";});var rotated=rotate(active,h);var bo=document.getElementById("badge-online");if(active.length){bo.style.display="inline-flex";document.getElementById("online-txt").textContent=active.length+" vendedor"+(active.length>1?"es":"")+" online";}else{bo.style.display="none";}document.getElementById("section-on").style.display=active.length?"block":"none";document.getElementById("section-off").style.display=inactive.length?"block":"none";document.getElementById("cards-on").innerHTML=rotated.map(function(v){return cardHTML(v,true);}).join("");document.getElementById("cards-off").innerHTML=inactive.map(function(v){return cardHTML(v,false);}).join("");}
+function cardHTML(v,on){var ls=LOJA[v.loja]||{c:"#888",bg:"rgba(128,128,128,0.1)"};var badge='<span class="loja-badge" style="color:'+ls.c+';background:'+ls.bg+'">'+v.loja+'</span>';var dot='<div class="dot '+(on?"dot-on pulsing":"dot-off")+'"></div>';var btn=on?'<a class="wa-btn" href="'+v.wa+'" target="_blank">Falar</a>':"";return'<div class="card '+(on?"card-on":"card-off")+'">'+dot+'<div class="info"><div class="nome">'+v.nome+'</div>'+'<div class="meta">'+badge+'<span class="status">'+v.st.label+'</span></div></div>'+btn+'</div>';}
+render();setInterval(render,30000);
 </script>
 </body>
 </html>
