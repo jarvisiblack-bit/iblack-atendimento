@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>iBlack — Atendimento</title>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B4ESCKQBCM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-B4ESCKQBCM');
+</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{background:#000;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',sans-serif}
@@ -187,13 +195,13 @@ function cardVendor(v){
     ?'<img src="'+F[v.foto]+'" class="'+avClass+'" alt="'+v.nome+'">'
     :'<div class="av '+(st.on?'av-on':st.plantao?'av-plantao':'av-off')+'" style="background:#1a1a1a;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#555">'+v.nome[0]+'</div>';
   const btnLabel=st.on?'Falar':st.plantao?'Plantão':'Offline';
-  return'<a class="'+cardClass+'" href="'+(v.wa||'#')+'" target="'+(v.wa?'_blank':'_self')+'">'+img+'<div class="info"><div class="nome">'+v.nome+'</div><div class="strow"><div class="'+dotClass+'"></div><span class="'+stxtClass+'">'+st.lbl+'</span><span class="lpill" style="color:'+lc+';background:'+lb+'">'+v.loja+'</span></div></div><span class="'+btnClass+'">'+btnLabel+'</span></a>';
+  return'<a class="'+cardClass+'" href="'+(v.wa||'#')+'" target="'+(v.wa?'_blank':'_self')+'" onclick="typeof gtag!==\'undefined\'&&gtag(\'event\',\'click_vendedor\',{event_category:\'whatsapp\',event_label:v.nome+\' | \'+v.loja})">'+img+'<div class="info"><div class="nome">'+v.nome+'</div><div class="strow"><div class="'+dotClass+'"></div><span class="'+stxtClass+'">'+st.lbl+'</span><span class="lpill" style="color:'+lc+';background:'+lb+'">'+v.loja+'</span></div></div><span class="'+btnClass+'">'+btnLabel+'</span></a>';
 }
 function cardOutro(v){
   const img=v.foto&&F[v.foto]
     ?`<img src="${F[v.foto]}" class="av-outro ${v.st.on?'av-outro-on':''}" alt="${v.nome}">`
     :`<div class="av-init" style="width:40px;height:40px;font-size:14px">${v.nome[0]}</div>`;
-  return`<a class="card-outro" href="${v.wa}" target="_blank">
+  return`<a class="card-outro" href="${v.wa}" target="_blank" onclick="typeof gtag!=='undefined'&&gtag('event','click_canal',{event_category:'whatsapp',event_label:\`${v.nome} | ${v.role}\`})">
     ${img}<div class="info" style="margin-left:10px">
       <div class="nome-outro">${v.nome}</div>
       <div class="role-outro">${v.role}</div>
