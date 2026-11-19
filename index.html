@@ -168,6 +168,13 @@ const OUTROS=[
 {nome:"RH IBLACK",role:"Oportunidades — Trabalhe na iBlack",wa:"https://wa.me/message/AGWC6UNBAI5SE1",foto:null,ag:{0:"07:00-20:00",1:"07:00-20:00",2:"07:00-20:00",3:"07:00-20:00",4:"07:00-20:00",5:"07:00-20:00",6:"07:00-20:00"}},
 ];
 
+// Exceções por data (feriados). Quem não está listado fica offline nesse dia. Só vale para vendedores (com loja).
+const EXC={
+  "2026-11-20":{"Ingryd":"13:00-19:00","Luis":"13:00-19:00","Fernando":"13:00-19:00"},
+  "2026-11-22":{"Ingryd":"13:00-19:00","Melyna":"13:00-19:00","Luis":"13:00-19:00","Fernando":"13:00-19:00"}
+};
+function dk(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function shiftOn(v,d){const e=EXC[dk(d)];if(e&&v.loja)return e[v.nome]||null;return v.ag[d.getDay()]||null;}
 function toM(s){const[h,m]=s.split(':').map(Number);return h*60+m;}
 function getStatus(v,now){
   const day=now.getDay(),mins=now.getHours()*60+now.getMinutes();
@@ -179,8 +186,8 @@ function getStatus(v,now){
       if(v.plantao[relevantDay])return{on:false,plantao:true,lbl:'Plantão'};
     }
   }
-  const sh=v.ag[day];
-  if(!sh){for(let d=1;d<=7;d++){const nd=(day+d)%7;if(v.ag[nd])return{on:false,plantao:false,lbl:'Offline — volta '+v.ag[nd].split('-')[0]};}return{on:false,plantao:false,lbl:'Offline'};}
+  const sh=shiftOn(v,now);
+  if(!sh){for(let d=1;d<=7;d++){const nd=new Date(now);nd.setDate(now.getDate()+d);const s2=shiftOn(v,nd);if(s2)return{on:false,plantao:false,lbl:'Offline — volta '+s2.split('-')[0]};}return{on:false,plantao:false,lbl:'Offline'};}
   const[si,sf]=sh.split('-'),s=toM(si),e=toM(sf);
   if(mins>=s&&mins<e)return{on:true,plantao:false,lbl:'Online até '+sf};
   if(mins<s)return{on:false,plantao:false,lbl:'Disponível às '+si};
